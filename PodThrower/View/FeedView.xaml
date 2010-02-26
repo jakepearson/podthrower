@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="PodThrower.View.FeedView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Height="74" Width="300">
+	<StackPanel>
+		<StackPanel Orientation="Horizontal" Margin="2">
+			<TextBlock Text="Folder:" Width="50" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" />
+			<TextBlock Text="{Binding Folder}" />
+			<Button Content="..." Command="{Binding ChooseFolderCommand}" />
+		</StackPanel>
+		<StackPanel Orientation="Horizontal" Margin="2">
+			<TextBlock Text="Title:" Width="50" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" />
+			<TextBox Text="{Binding Title}" />
+		</StackPanel>
+		<StackPanel Orientation="Horizontal" Margin="2">
+			<TextBlock Text="Image:" Width="50" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" />
+			<TextBlock Text="{Binding Image}" />
+			<Button Content="..." Command="{Binding ChooseImageCommand}" />
+		</StackPanel>
+	</StackPanel>
+
+</UserControl>

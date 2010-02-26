@@ -11,8 +11,10 @@ namespace PodThrower.Model
 		#region Member Variables
 		string folder;
 		string title;
+		string image;
 
 		ICommand chooseFolderCommand;
+		ICommand chooseImageCommand;
 		#endregion
 
 		#region Properties
@@ -41,6 +43,19 @@ namespace PodThrower.Model
 				}
 			}
 		}
+
+		public string Image
+		{
+			get { return image; }
+			set
+			{
+				if (image != value)
+				{
+					image = value;
+					LaunchChanged("Image");
+				}
+			}
+		}
 		#endregion
 
 		#region Commands
@@ -48,11 +63,19 @@ namespace PodThrower.Model
 		{
 			get { return chooseFolderCommand ?? (chooseFolderCommand = new RelayCommand(p => ChooseFolder())); }
 		}
+
+		public ICommand ChooseImageCommand
+		{
+			get { return chooseImageCommand ?? (chooseImageCommand = new RelayCommand(p => ChooseImage())); }
+		}
 		#endregion
 
 		void ChooseFolder()
 		{
+		}
 
+		void ChooseImage()
+		{
 		}
 	}
 }
