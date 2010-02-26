@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 
 namespace PodThrower.Model
 {
@@ -10,6 +11,8 @@ namespace PodThrower.Model
 		#region Member Variables
 		string folder;
 		string title;
+
+		ICommand chooseFolderCommand;
 		#endregion
 
 		#region Properties
@@ -39,5 +42,17 @@ namespace PodThrower.Model
 			}
 		}
 		#endregion
+
+		#region Commands
+		public ICommand ChooseFolderCommand
+		{
+			get { return chooseFolderCommand ?? (chooseFolderCommand = new RelayCommand(p => ChooseFolder())); }
+		}
+		#endregion
+
+		void ChooseFolder()
+		{
+
+		}
 	}
 }

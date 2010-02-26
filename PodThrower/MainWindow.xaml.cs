@@ -30,22 +30,5 @@ namespace PodThrower
 
 			//Connect();
 		}
-
-		void Connect()
-		{
-			Uri address = new Uri("http://localhost:8000/NewsFeedService/");
-			host = new WebServiceHost(typeof(NewsFeedService), address);
-
-			try
-			{
-				host.Open();
-			}
-			catch (CommunicationException ce)
-			{
-				MessageBox.Show(ce.ToString());
-				host.Abort();
-				host = null;
-			}
-		}
 	}
 }

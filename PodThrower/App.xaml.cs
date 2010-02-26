@@ -19,7 +19,9 @@ namespace PodThrower
 			base.OnStartup(e);
 
 			var notifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
-			notifyIcon.DataContext = new Document();
+			var document = new Document();
+			document.Connect();
+			notifyIcon.DataContext = document;
 		}
 	}
 }
