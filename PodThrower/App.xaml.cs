@@ -4,6 +4,8 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
+using Hardcodet.Wpf.TaskbarNotification;
+using PodThrower.Model;
 
 namespace PodThrower
 {
@@ -12,5 +14,12 @@ namespace PodThrower
 	/// </summary>
 	public partial class App : Application
 	{
+		protected override void OnStartup(StartupEventArgs e)
+		{
+			base.OnStartup(e);
+
+			var notifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
+			notifyIcon.DataContext = new Document();
+		}
 	}
 }
