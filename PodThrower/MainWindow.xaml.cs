@@ -28,7 +28,7 @@ namespace PodThrower
 		{
 			InitializeComponent();
 
-			Connect();
+			//Connect();
 		}
 
 		void Connect()
