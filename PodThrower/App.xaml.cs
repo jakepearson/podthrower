@@ -20,7 +20,7 @@ namespace PodThrower
 
 			var notifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
 			var document = new Document();
-			document.Connect();
+			document.Open();
 			notifyIcon.DataContext = document;
 		}
 	}

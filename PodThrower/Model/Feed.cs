@@ -56,6 +56,11 @@ namespace PodThrower.Model
 				}
 			}
 		}
+
+		public string URL
+		{
+			get { return @"http://pod.codeplex.com/"; }
+		}
 		#endregion
 
 		#region Commands
