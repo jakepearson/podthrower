@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.ServiceModel.Syndication;
 using System.IO;
+using PodThrower.Model;
 
 namespace PodThrower
 {
@@ -16,23 +17,35 @@ namespace PodThrower
 	public interface INewsFeed
 	{
 		[OperationContract]
-		[WebGet(UriTemplate = "GetNews?format={format}")]
-		SyndicationFeedFormatter GetNews(string format);
+		[WebGet(UriTemplate = "GetNews?format={format}&id={id}")]
+		SyndicationFeedFormatter GetNews(string format, string id);
 	}
 
 	public class NewsFeedService : INewsFeed
 	{
-		const string Path = @"C:\Users\Jake\Downloads\alt.binaries.howard-stern\";
-
-		public SyndicationFeedFormatter GetNews(string format)
+		#region Properties
+		Document Document
 		{
+			get;
+			set;
+		}
+		#endregion
+
+		public SyndicationFeedFormatter GetNews(string format, string id)
+		{
+			var feedDefinition = Document.Feeds.FirstOrDefault(f => f.Title == id);
+			if (feedDefinition == null)
+			{
+				throw new Exception("Unknown feed");
+			}
+
 			//Setting up the feed formatter.
-			SyndicationFeed feed = new SyndicationFeed("Howard Stern", "The Howard Stern Show", new Uri("http://howardstern.com"));
-			feed.Authors.Add(new SyndicationPerson("dude@gmail.com"));
+			SyndicationFeed feed = new SyndicationFeed(feedDefinition.Title, feedDefinition.Title, new Uri(feedDefinition.URL));
+			feed.Authors.Add(new SyndicationPerson("nobody@noone.com"));
 			feed.Categories.Add(new SyndicationCategory("Talk Radio"));
-			feed.Description = new TextSyndicationContent("The Howard Stern Show");
-			feed.Items = GetItems();
-			feed.ImageUrl = new Uri("http://localhost:86/sternfirst.gif");
+			feed.Description = new TextSyndicationContent(feedDefinition.Title);
+			feed.Items = GetItems(feedDefinition);
+			feed.ImageUrl = new Uri("http://localhost:86/" + feedDefinition.Image);
 
 			// Processing and serving the feed according to the required format
 			// i.e. either RSS or Atom.
@@ -48,11 +61,11 @@ namespace PodThrower
 			return result;
 		}
 
-		IEnumerable<SyndicationItem> GetItems()
+		IEnumerable<SyndicationItem> GetItems(Feed feedDefinition)
 		{
-			foreach (var file in GetMP3s(Path))
+			foreach (var file in GetMP3s(feedDefinition.Folder))
 			{
-				var shortFile = file.FullName.Replace(Path, "").Replace('\\', '/');
+				var shortFile = file.FullName.Replace(feedDefinition.Folder, "").Replace('\\', '/');
 
 				var item = new SyndicationItem();
 				var title = file.Name.Replace(".mp3", "");

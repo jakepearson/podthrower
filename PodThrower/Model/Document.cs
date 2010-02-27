@@ -15,7 +15,7 @@ namespace PodThrower.Model
 	public class Document : BaseModel
 	{
 		#region Member Variables
-		int port = 8000;
+		int port = 4242;
 		bool connected;
 		ObservableCollection<Feed> feeds;
 		WebServiceHost host;
@@ -71,28 +71,52 @@ namespace PodThrower.Model
 
 		public ICommand ConnectCommand
 		{
-			get { return connectCommand ?? (connectCommand = new RelayCommand(p => Connect())); }
+			get { return connectCommand ?? (connectCommand = new RelayCommand(p => Open())); }
 		}
 		#endregion
 
 		void ShowEditor()
 		{
+			AddDefaultFeed();
 		}
 
-		public void Connect()
+		void AddDefaultFeed()
 		{
+			Feeds.Add(new Feed
+			{
+				Image = "http://localhost:86/sternfirst.gif",
+				Title = "Howard Stern",
+				Folder = @"C:\Users\Jake\Downloads\alt.binaries.howard-stern\"
+			});
+		}
+
+		public void Open()
+		{
+			Close();
+
 			Uri address = new Uri("http://localhost:" + Port + "/PodThrower/");
 			host = new WebServiceHost(typeof(NewsFeedService), address);
 
 			try
 			{
 				host.Open();
+				Connected = true;
 			}
 			catch (CommunicationException ce)
 			{
 				MessageBox.Show(ce.ToString());
 				host.Abort();
 				host = null;
+			}
+		}
+
+		public void Close()
+		{
+			if (host != null && Connected)
+			{
+				host.Close();
+				host = null;
+				Connected = false;
 			}
 		}
 	}
