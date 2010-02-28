@@ -41,7 +41,7 @@ namespace PodThrower
 
 			//Setting up the feed formatter.
 			SyndicationFeed feed = new SyndicationFeed(feedDefinition.Title, feedDefinition.Title, new Uri(feedDefinition.URL));
-			feed.Authors.Add(new SyndicationPerson("nobody@noone.com"));
+			feed.Authors.Add(new SyndicationPerson("nobody@nobody.com"));
 			feed.Categories.Add(new SyndicationCategory("Talk Radio"));
 			feed.Description = new TextSyndicationContent(feedDefinition.Title);
 			feed.Items = GetItems(feedDefinition);

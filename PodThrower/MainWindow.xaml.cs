@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ServiceModel.Web;
 using System.ServiceModel;
+using PodThrower.Model;
+using System.ComponentModel;
 
 namespace PodThrower
 {
@@ -28,7 +30,15 @@ namespace PodThrower
 		{
 			InitializeComponent();
 
+			DataContext = new Document(this);
+
 			//Connect();
+		}
+
+		private void Window_Closing(object sender, CancelEventArgs e)
+		{
+			this.Visibility = Visibility.Hidden;
+			e.Cancel = true;
 		}
 	}
 }

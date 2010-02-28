@@ -89,6 +89,20 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_91E92A3F587641A69C11AF711D973481"
+            {
+            "Name" = "8:Install Helper"
+            "Condition" = "8:"
+            "Object" = "8:_E39EC3FC14604390970B9F432C1D8A8A"
+            "FileType" = "3:2"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_09214570_8E23_4DB6_8BB0_22A604841659"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -223,6 +237,17 @@
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_0B6838B5683E44949E5AD862BAA2FC8E"
+                    {
+                    "Name" = "8:Pod Thrower"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_225B706EEDA34D78AFCB650193E97B60"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
         }
@@ -361,6 +386,34 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_76F2C8C71AB4486EB64A2C34654EF548"
+            {
+            "Name" = "8:Pod Thrower"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_E39EC3FC14604390970B9F432C1D8A8A"
+            "Folder" = "8:_2D22B201EE624BE4AF3FDA44180C826C"
+            "WorkingFolder" = "8:_6A9312DB8FD04535ACA1E8E7ACD8BDF2"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_781C001474C7462BA878CD1541CC8B21"
+            {
+            "Name" = "8:Pod Thrower"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_E39EC3FC14604390970B9F432C1D8A8A"
+            "Folder" = "8:_0B6838B5683E44949E5AD862BAA2FC8E"
+            "WorkingFolder" = "8:_6A9312DB8FD04535ACA1E8E7ACD8BDF2"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {

@@ -2,17 +2,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:tb="clr-namespace:Hardcodet.Wpf.TaskbarNotification;assembly=Hardcodet.Wpf.TaskbarNotification"
-    Title="MainWindow" Height="300" Width="300">
-
-	<Window.Resources>
-		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-	</Window.Resources>
-	
+	xmlns:v="clr-namespace:PodThrower.View"
+    Title="Pod Thrower" Height="300" Width="300" Visibility="Hidden" Closing="Window_Closing">
 	<Grid>
-		<tb:TaskbarIcon
-			x:Name="NotifyIcon"
-			IconSource="/Images/Tray.ico"
-			ToolTipText="Pod Thrower"
-		/>
-	</Grid>
+        <v:DocumentView />
+        <tb:TaskbarIcon IconSource="/Images/Tray.ico" ToolTipText="{Binding Message}" DoubleClickCommand="{Binding EditCommand}" />
+    </Grid>
 </Window>

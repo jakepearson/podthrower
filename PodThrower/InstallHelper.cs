@@ -16,11 +16,12 @@ namespace PodThrower
 			InitializeComponent();
 		}
 
-		public override void Install(IDictionary stateSaver)
+		protected override void OnCommitted(IDictionary savedState)
 		{
-			base.Install(stateSaver);
+			base.OnCommitted(savedState);
 
-			Process.Start("netsh", @"http add urlacl url=http://+:4242/PodThrower user=BUILTIN\Users");
+			var process = Process.Start("netsh", @"http add urlacl url=http://+:4242/PodThrower user=BUILTIN\Users");
+			process.WaitForExit();
 		}
 	}
 }
