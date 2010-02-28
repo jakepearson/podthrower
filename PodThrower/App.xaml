@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:tb="clr-namespace:Hardcodet.Wpf.TaskbarNotification;assembly=Hardcodet.Wpf.TaskbarNotification"
 	xmlns:v="clr-namespace:PodThrower.View"
+    StartupUri="MainWindow.xaml"
 	>
     <Application.Resources>
 		<ResourceDictionary>

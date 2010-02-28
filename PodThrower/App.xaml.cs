@@ -18,10 +18,10 @@ namespace PodThrower
 		{
 			base.OnStartup(e);
 
-			var notifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
+			/*var notifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
 			var document = new Document();
 			document.Open();
-			notifyIcon.DataContext = document;
+			notifyIcon.DataContext = document;*/
 		}
 	}
 }

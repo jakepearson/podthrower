@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using System.Windows.Forms;
 
 namespace PodThrower.Model
 {
@@ -77,10 +78,17 @@ namespace PodThrower.Model
 
 		void ChooseFolder()
 		{
+			var chooser = new FolderBrowserDialog();
+			chooser.SelectedPath = Folder;
+			if (chooser.ShowDialog() == DialogResult.OK)
+			{
+				Folder = chooser.SelectedPath;
+			}
 		}
 
 		void ChooseImage()
 		{
+			var chooser = new OpenFileDialog();
 		}
 	}
 }
