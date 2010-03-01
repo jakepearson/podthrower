@@ -65,7 +65,7 @@ namespace PodThrower
 			var count = int.Parse(index);
 			var feed = GetFeedDefinition(id);
 			WebOperationContext.Current.OutgoingResponse.ContentType = Constants.MP3Mime;
-			var file = GetMP3s(feed.Folder).Skip(count).First();
+			var file = feed.Files.Skip(count).First();
 			return new FileStream(file.FullName, FileMode.Open, FileAccess.Read);
 		}
 
@@ -96,7 +96,7 @@ namespace PodThrower
 		IEnumerable<SyndicationItem> GetItems(Feed feedDefinition)
 		{
 			var count = 0;
-			foreach (var file in GetMP3s(feedDefinition.Folder))
+			foreach (var file in feedDefinition.Files)
 			{
 				var shortFile = file.FullName.Replace(feedDefinition.Folder, "").Replace('\\', '/');
 
@@ -115,14 +115,6 @@ namespace PodThrower
 				item.Links.Add(SyndicationLink.CreateMediaEnclosureLink(uri, type, length));
 				count++;
 				yield return item;
-			}
-		}
-
-		IEnumerable<FileInfo> GetMP3s(string path)
-		{
-			foreach (var file in Directory.GetFiles(path, "*.mp3", SearchOption.AllDirectories))
-			{
-				yield return new FileInfo(file);
 			}
 		}
 	}
