@@ -6,6 +6,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExtraDlls", "ExtraDlls", "{1466CC72-99A1-4FD1-B097-47AB650C0067}"
 	ProjectSection(SolutionItems) = preProject
 		ExtraDlls\Hardcodet.Wpf.TaskbarNotification.dll = ExtraDlls\Hardcodet.Wpf.TaskbarNotification.dll
+		ExtraDlls\RawHttp.dll = ExtraDlls\RawHttp.dll
 		ExtraDlls\Syndication.dll = ExtraDlls\Syndication.dll
 	EndProjectSection
 EndProject
