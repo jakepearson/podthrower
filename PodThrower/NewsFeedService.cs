@@ -7,6 +7,10 @@ using System.ServiceModel.Web;
 using System.ServiceModel.Syndication;
 using System.IO;
 using PodThrower.Model;
+using System.ServiceModel.Channels;
+using RawHttp;
+using System.Web;
+using System.Net;
 
 namespace PodThrower
 {
@@ -17,11 +21,19 @@ namespace PodThrower
 	public interface INewsFeed
 	{
 		[OperationContract]
-		[WebGet(UriTemplate = "GetNews?format={format}&id={id}")]
-		SyndicationFeedFormatter GetNews(string format, string id);
+		[WebGet(UriTemplate = "feed/{id}")]
+		SyndicationFeedFormatter GetFeed(int id);
+
+		[OperationContract]
+		[WebGet(UriTemplate = "file/{id}/{index}")]
+		Message GetFile(int id, int index);
+
+		[OperationContract]
+		[WebGet(UriTemplate = "image/{id}")]
+		Message GetImage(int id);
 	}
 
-	public class NewsFeedService : INewsFeed
+	public class NewsFeedService : WebRequestHandler, INewsFeed
 	{
 		#region Properties
 		Document Document
@@ -31,34 +43,69 @@ namespace PodThrower
 		}
 		#endregion
 
-		public SyndicationFeedFormatter GetNews(string format, string id)
+		public SyndicationFeedFormatter GetFeed(int id)
 		{
-			var feedDefinition = Document.Feeds.FirstOrDefault(f => f.Title == id);
-			if (feedDefinition == null)
-			{
-				throw new Exception("Unknown feed");
-			}
+			var feedDefinition = GetFeedDefinition(id);
 
-			//Setting up the feed formatter.
 			SyndicationFeed feed = new SyndicationFeed(feedDefinition.Title, feedDefinition.Title, new Uri(feedDefinition.URL));
 			feed.Authors.Add(new SyndicationPerson("nobody@nobody.com"));
 			feed.Categories.Add(new SyndicationCategory("Talk Radio"));
 			feed.Description = new TextSyndicationContent(feedDefinition.Title);
 			feed.Items = GetItems(feedDefinition);
-			feed.ImageUrl = new Uri("http://localhost:86/" + feedDefinition.Image);
+			feed.ImageUrl = new Uri(Constants.RootURL + "image/" + id);
 
-			// Processing and serving the feed according to the required format
-			// i.e. either RSS or Atom.
-			SyndicationFeedFormatter result = null;
-			if (format == "atom")
+			return new Rss20FeedFormatter(feed, false);
+		}
+
+		public Message GetFile(int id, int index)
+		{
+			return null;
+		}
+
+		public Message GetImage(int id)
+		{
+			var feed = GetFeedDefinition(id);
+			var _webEncoder = BindingFactory.CreateEncoder().CreateMessageEncoderFactory().Encoder;
+
+			using (var responseStream = new MemoryStream())
 			{
-				result = new Atom10FeedFormatter(feed);
+				using (var writer = new StreamWriter(responseStream))
+				{
+					using (var requestStream = new MemoryStream())
+					{
+						var responseProperty = new HttpResponseMessageProperty();
+
+						ProcessRequest(feed.Image, responseProperty, writer);
+
+						writer.Flush();
+						Message responseMessage = new RawMessage(responseStream.ToArray());
+						responseMessage.Properties[HttpResponseMessageProperty.Name] = responseProperty;
+						return responseMessage;
+					}
+				}
 			}
-			else
-			{
-				result = new Rss20FeedFormatter(feed, false);
-			}
-			return result;
+		}
+
+		protected void ProcessRequest(string file, HttpResponseMessageProperty responseProperty, TextWriter responseBody)
+		{
+			var request = new HttpRequest(file, address.ToString(), "");
+			request.RequestType = requestProperty.Method;
+
+			var response = new HttpResponse(responseBody);
+			response.ContentType = "text/html";
+
+			var context = new HttpContext(request, response);
+			var handler = new FileRequestHandler();
+			handler.ProcessRequest(context);
+
+			responseProperty.Headers.Add("Content-Type", response.ContentType);
+			responseProperty.StatusCode = (HttpStatusCode)response.StatusCode;
+			responseProperty.StatusDescription = response.StatusDescription;
+		}
+
+		Feed GetFeedDefinition(int id)
+		{
+			return Document.Feeds.First(f => f.ID == id);
 		}
 
 		IEnumerable<SyndicationItem> GetItems(Feed feedDefinition)
@@ -90,6 +137,11 @@ namespace PodThrower
 			{
 				yield return new FileInfo(file);
 			}
+		}
+
+		protected override void ProcessRequest(Uri address, HttpRequestMessageProperty requestProperty, TextReader requestBody, HttpResponseMessageProperty responseProperty, TextWriter responseBody)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

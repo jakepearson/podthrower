@@ -20,7 +20,7 @@ namespace PodThrower
 		{
 			base.OnCommitted(savedState);
 
-			var process = Process.Start("netsh", @"http add urlacl url=http://+:4242/PodThrower user=BUILTIN\Users");
+			var process = Process.Start("netsh", @"http add urlacl url=http://+:4242/podthrower user=BUILTIN\Users");
 			process.WaitForExit();
 		}
 	}

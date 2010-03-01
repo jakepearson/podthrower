@@ -124,7 +124,8 @@ namespace PodThrower.Model
 			{
 				Image = "http://localhost:86/sternfirst.gif",
 				Title = "Howard Stern",
-				Folder = @"C:\Users\Jake\Downloads\alt.binaries.howard-stern\"
+				Folder = @"C:\Users\Jake\Downloads\alt.binaries.howard-stern\",
+				ID = Feeds.Count
 			});
 		}
 

@@ -13,6 +13,7 @@ namespace PodThrower.Model
 		string folder;
 		string title;
 		string image;
+		int id;
 
 		ICommand chooseFolderCommand;
 		ICommand chooseImageCommand;
@@ -54,6 +55,19 @@ namespace PodThrower.Model
 				{
 					image = value;
 					LaunchChanged("Image");
+				}
+			}
+		}
+
+		public int ID
+		{
+			get { return id; }
+			set
+			{
+				if (id != value)
+				{
+					id = value;
+					LaunchChanged("ID");
 				}
 			}
 		}
