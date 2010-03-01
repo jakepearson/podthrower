@@ -11,6 +11,7 @@ using System.ServiceModel.Channels;
 using RawHttp;
 using System.Web;
 using System.Net;
+using System.Windows;
 
 namespace PodThrower
 {
@@ -22,28 +23,27 @@ namespace PodThrower
 	{
 		[OperationContract]
 		[WebGet(UriTemplate = "feed/{id}")]
-		SyndicationFeedFormatter GetFeed(int id);
+		SyndicationFeedFormatter GetFeed(string id);
 
 		[OperationContract]
 		[WebGet(UriTemplate = "file/{id}/{index}")]
-		Message GetFile(int id, int index);
+		Message GetFile(string id, string index);
 
 		[OperationContract]
 		[WebGet(UriTemplate = "image/{id}")]
-		Message GetImage(int id);
+		Message GetImage(string id);
 	}
 
-	public class NewsFeedService : WebRequestHandler, INewsFeed
+	public class NewsFeedService : INewsFeed
 	{
 		#region Properties
 		Document Document
 		{
-			get;
-			set;
+			get { return (Document)Application.Current.Windows[0].DataContext; }
 		}
 		#endregion
 
-		public SyndicationFeedFormatter GetFeed(int id)
+		public SyndicationFeedFormatter GetFeed(string id)
 		{
 			var feedDefinition = GetFeedDefinition(id);
 
@@ -57,12 +57,12 @@ namespace PodThrower
 			return new Rss20FeedFormatter(feed, false);
 		}
 
-		public Message GetFile(int id, int index)
+		public Message GetFile(string id, string index)
 		{
 			return null;
 		}
 
-		public Message GetImage(int id)
+		public Message GetImage(string id)
 		{
 			var feed = GetFeedDefinition(id);
 			var _webEncoder = BindingFactory.CreateEncoder().CreateMessageEncoderFactory().Encoder;
@@ -78,7 +78,7 @@ namespace PodThrower
 						ProcessRequest(feed.Image, responseProperty, writer);
 
 						writer.Flush();
-						Message responseMessage = new RawMessage(responseStream.ToArray());
+						Message responseMessage = new WebRequestHandler.RawMessage(responseStream.ToArray());
 						responseMessage.Properties[HttpResponseMessageProperty.Name] = responseProperty;
 						return responseMessage;
 					}
@@ -88,11 +88,12 @@ namespace PodThrower
 
 		protected void ProcessRequest(string file, HttpResponseMessageProperty responseProperty, TextWriter responseBody)
 		{
-			var request = new HttpRequest(file, address.ToString(), "");
-			request.RequestType = requestProperty.Method;
+			var url = OperationContext.Current.RequestContext.RequestMessage.Headers.To;
+			var request = new HttpRequest(file, url.ToString(), "");
+			request.RequestType = "GET";
 
 			var response = new HttpResponse(responseBody);
-			response.ContentType = "text/html";
+			response.ContentType = "image/gif";
 
 			var context = new HttpContext(request, response);
 			var handler = new FileRequestHandler();
@@ -103,9 +104,10 @@ namespace PodThrower
 			responseProperty.StatusDescription = response.StatusDescription;
 		}
 
-		Feed GetFeedDefinition(int id)
+		Feed GetFeedDefinition(string id)
 		{
-			return Document.Feeds.First(f => f.ID == id);
+			var i = int.Parse(id);
+			return Document.Feeds.First(f => f.ID == i);
 		}
 
 		IEnumerable<SyndicationItem> GetItems(Feed feedDefinition)
@@ -137,11 +139,6 @@ namespace PodThrower
 			{
 				yield return new FileInfo(file);
 			}
-		}
-
-		protected override void ProcessRequest(Uri address, HttpRequestMessageProperty requestProperty, TextReader requestBody, HttpResponseMessageProperty responseProperty, TextWriter responseBody)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }

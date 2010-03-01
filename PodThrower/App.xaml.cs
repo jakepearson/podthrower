@@ -14,14 +14,5 @@ namespace PodThrower
 	/// </summary>
 	public partial class App : Application
 	{
-		protected override void OnStartup(StartupEventArgs e)
-		{
-			base.OnStartup(e);
-
-			/*var notifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
-			var document = new Document();
-			document.Open();
-			notifyIcon.DataContext = document;*/
-		}
 	}
 }
