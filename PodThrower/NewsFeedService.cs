@@ -29,8 +29,8 @@ namespace PodThrower
 		SyndicationFeedFormatter GetFeed(string id);
 
 		[OperationContract]
-		[WebGet(UriTemplate = "file/{id}/{index}")]
-		Message GetFile(string id, string index);
+		[WebGet(UriTemplate = "file/{id}/{index}.mp3")]
+		Stream GetFile(string id, string index);
 
 		[OperationContract]
 		[WebInvoke(Method="GET", UriTemplate = "image/{id}")]
@@ -60,41 +60,23 @@ namespace PodThrower
 			return new Rss20FeedFormatter(feed, false);
 		}
 
-		public Message GetFile(string id, string index)
+		public Stream GetFile(string id, string index)
 		{
-			return null;
+			var count = int.Parse(index);
+			var feed = GetFeedDefinition(id);
+			WebOperationContext.Current.OutgoingResponse.ContentType = Constants.MP3Mime;
+			var file = GetMP3s(feed.Folder).Skip(count).First();
+			return new FileStream(file.FullName, FileMode.Open, FileAccess.Read);
 		}
 
 		public Stream GetImage(string id)
 		{
 			var feed = GetFeedDefinition(id);
 
-			WebOperationContext.Current.OutgoingResponse.ContentType = "image/jpeg";
+			WebOperationContext.Current.OutgoingResponse.ContentType = Constants.ImageMIME;
 			var imageAsMemoryStream = GetImageAsMemoryStream(feed.Image);
 			return imageAsMemoryStream;
 		}
-  
-
-			/*var _webEncoder = BindingFactory.CreateEncoder().CreateMessageEncoderFactory().Encoder;
-
-			using (var responseStream = new MemoryStream())
-			{
-				using (var writer = new StreamWriter(responseStream))
-				{
-					using (var requestStream = new MemoryStream())
-					{
-						var responseProperty = new HttpResponseMessageProperty();
-
-						ProcessRequest(feed.Image, responseProperty, writer);
-
-						writer.Flush();
-						Message responseMessage = new WebRequestHandler.RawMessage(responseStream.ToArray());
-						responseMessage.Properties[HttpResponseMessageProperty.Name] = responseProperty;
-						return responseMessage;
-					}
-				}
-			}*/
-		//}
 
 	    MemoryStream GetImageAsMemoryStream(string imagePath)  
 		{  
@@ -105,24 +87,6 @@ namespace PodThrower
 			return imageAsMemoryStream;  
 		} 
 
-		protected void ProcessRequest(string file, HttpResponseMessageProperty responseProperty, TextWriter responseBody)
-		{
-			var url = OperationContext.Current.RequestContext.RequestMessage.Headers.To;
-			var request = new HttpRequest(file, url.ToString(), "");
-			request.RequestType = "GET";
-
-			var response = new HttpResponse(responseBody);
-			response.ContentType = "image/gif";
-
-			var context = new HttpContext(request, response);
-			var handler = new FileRequestHandler();
-			handler.ProcessRequest(context);
-
-			responseProperty.Headers.Add("Content-Type", response.ContentType);
-			responseProperty.StatusCode = (HttpStatusCode)response.StatusCode;
-			responseProperty.StatusDescription = response.StatusDescription;
-		}
-
 		Feed GetFeedDefinition(string id)
 		{
 			var i = int.Parse(id);
@@ -131,6 +95,7 @@ namespace PodThrower
 
 		IEnumerable<SyndicationItem> GetItems(Feed feedDefinition)
 		{
+			var count = 0;
 			foreach (var file in GetMP3s(feedDefinition.Folder))
 			{
 				var shortFile = file.FullName.Replace(feedDefinition.Folder, "").Replace('\\', '/');
@@ -143,11 +108,12 @@ namespace PodThrower
 				item.Summary = new TextSyndicationContent(title);
 				item.Categories.Add(new SyndicationCategory("Talk Radio"));
 
-				var uri = new Uri("http://localhost:86/" + shortFile);
+				var uri = new Uri(Constants.RootURL + "file/" + feedDefinition.ID + "/" + count + ".mp3");
 				var length = file.Length;
-				var type = "audio/mpeg";
+				var type = Constants.MP3Mime;
 
 				item.Links.Add(SyndicationLink.CreateMediaEnclosureLink(uri, type, length));
+				count++;
 				yield return item;
 			}
 		}
