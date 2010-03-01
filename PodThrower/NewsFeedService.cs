@@ -12,6 +12,9 @@ using RawHttp;
 using System.Web;
 using System.Net;
 using System.Windows;
+using System.Drawing.Imaging;
+using System.Drawing;
+using System.ServiceModel.Activation;
 
 namespace PodThrower
 {
@@ -30,8 +33,8 @@ namespace PodThrower
 		Message GetFile(string id, string index);
 
 		[OperationContract]
-		[WebGet(UriTemplate = "image/{id}")]
-		Message GetImage(string id);
+		[WebInvoke(Method="GET", UriTemplate = "image/{id}")]
+		Stream GetImage(string id);
 	}
 
 	public class NewsFeedService : INewsFeed
@@ -62,10 +65,17 @@ namespace PodThrower
 			return null;
 		}
 
-		public Message GetImage(string id)
+		public Stream GetImage(string id)
 		{
 			var feed = GetFeedDefinition(id);
-			var _webEncoder = BindingFactory.CreateEncoder().CreateMessageEncoderFactory().Encoder;
+
+			WebOperationContext.Current.OutgoingResponse.ContentType = "image/jpeg";
+			var imageAsMemoryStream = GetImageAsMemoryStream(feed.Image);
+			return imageAsMemoryStream;
+		}
+  
+
+			/*var _webEncoder = BindingFactory.CreateEncoder().CreateMessageEncoderFactory().Encoder;
 
 			using (var responseStream = new MemoryStream())
 			{
@@ -83,8 +93,17 @@ namespace PodThrower
 						return responseMessage;
 					}
 				}
-			}
-		}
+			}*/
+		//}
+
+	    MemoryStream GetImageAsMemoryStream(string imagePath)  
+		{  
+			var imageAsMemoryStream = new MemoryStream();  
+			var image = new Bitmap(imagePath);  
+			image.Save(imageAsMemoryStream, ImageFormat.Jpeg);  
+			imageAsMemoryStream.Position = 0;  
+			return imageAsMemoryStream;  
+		} 
 
 		protected void ProcessRequest(string file, HttpResponseMessageProperty responseProperty, TextWriter responseBody)
 		{
