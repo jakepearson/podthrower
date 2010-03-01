@@ -30,7 +30,10 @@ namespace PodThrower
 		{
 			InitializeComponent();
 
-			DataContext = new Document(this);
+			var document = new Document(this);
+			document.Add();
+			DataContext = document;
+
 
 			//Connect();
 		}

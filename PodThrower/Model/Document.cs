@@ -122,7 +122,7 @@ namespace PodThrower.Model
 		{
 			Feeds.Add(new Feed
 			{
-				Image = "http://localhost:86/sternfirst.gif",
+				Image = @"C:\Users\Jake\Downloads\alt.binaries.howard-stern\sternfirst.gif",
 				Title = "Howard Stern",
 				Folder = @"C:\Users\Jake\Downloads\alt.binaries.howard-stern\",
 				ID = Feeds.Count
@@ -133,7 +133,7 @@ namespace PodThrower.Model
 		{
 			Close();
 
-			Uri address = new Uri("http://localhost:" + Port + "/PodThrower/");
+			Uri address = new Uri("http://localhost:" + Port + "/podthrower/");
 			host = new WebServiceHost(typeof(NewsFeedService), address);
 
 			try
