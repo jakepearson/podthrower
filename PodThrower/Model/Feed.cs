@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using System.Windows.Forms;
+using System.IO;
 
 namespace PodThrower.Model
 {
@@ -75,6 +76,17 @@ namespace PodThrower.Model
 		public string URL
 		{
 			get { return @"http://pod.codeplex.com/"; }
+		}
+
+		public IEnumerable<FileInfo> Files
+		{
+			get
+			{
+				foreach (var file in Directory.GetFiles(Folder, "*.mp3", SearchOption.AllDirectories))
+				{
+					yield return new FileInfo(file);
+				}
+			}
 		}
 		#endregion
 
