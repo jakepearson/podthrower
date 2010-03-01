@@ -138,7 +138,7 @@ namespace PodThrower.Model
 
 			try
 			{
-				host.Open();
+						host.Open();
 				Connected = true;
 			}
 			catch (CommunicationException ce)
