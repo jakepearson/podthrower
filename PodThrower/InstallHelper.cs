@@ -23,5 +23,12 @@ namespace PodThrower
 			var process = Process.Start("netsh", @"http add urlacl url=http://+:4242/podthrower user=BUILTIN\Users");
 			process.WaitForExit();
 		}
+
+		protected override void OnAfterUninstall(IDictionary savedState)
+		{
+			base.OnAfterUninstall(savedState);
+
+			//Remove netsh binding
+		}
 	}
 }
