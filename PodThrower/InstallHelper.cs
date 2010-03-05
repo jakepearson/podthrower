@@ -28,7 +28,8 @@ namespace PodThrower
 		{
 			base.OnAfterUninstall(savedState);
 
-			//Remove netsh binding
+			var process = Process.Start("netsh", @"http delete urlacl url=http://+:4242/podthrower");
+			process.WaitForExit();			
 		}
 	}
 }
