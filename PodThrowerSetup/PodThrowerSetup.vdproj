@@ -15,13 +15,19 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_824EC6799B88A6068D2FF669CD4674BE"
+        "MsmKey" = "8:_50828AB8F8D0A27B3CA6B197C0D742CF"
         "OwnerKey" = "8:_E39EC3FC14604390970B9F432C1D8A8A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_85BB2348F3A9F5DAF0ABCA7870A73A13"
+        "MsmKey" = "8:_8065A1059142953B0557508C41DF87BC"
+        "OwnerKey" = "8:_E39EC3FC14604390970B9F432C1D8A8A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9224D534C170466315F525CE54337E8A"
         "OwnerKey" = "8:_E39EC3FC14604390970B9F432C1D8A8A"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -34,19 +40,25 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_85BB2348F3A9F5DAF0ABCA7870A73A13"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_E39EC3FC14604390970B9F432C1D8A8A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_824EC6799B88A6068D2FF669CD4674BE"
+        "OwnerKey" = "8:_50828AB8F8D0A27B3CA6B197C0D742CF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8065A1059142953B0557508C41DF87BC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_9224D534C170466315F525CE54337E8A"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -67,6 +79,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -83,23 +103,44 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.3.5.SP1"
+                    {
+                    "Name" = "8:.NET Framework 3.5 SP1"
+                    "ProductCode" = "8:Microsoft.Net.Framework.3.5.SP1"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
     {
         "CustomAction"
         {
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_91E92A3F587641A69C11AF711D973481"
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_250A9FC531DF4177B472C4AF7D16E917"
             {
             "Name" = "8:Install Helper"
             "Condition" = "8:"
             "Object" = "8:_E39EC3FC14604390970B9F432C1D8A8A"
             "FileType" = "3:2"
-            "InstallAction" = "3:2"
+            "InstallAction" = "3:1"
             "Arguments" = "8:"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
-            "Identifier" = "8:_09214570_8E23_4DB6_8BB0_22A604841659"
+            "Identifier" = "8:_4DFBF34F_5177_41CF_8F35_A27FC6B65679"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
             }
@@ -126,14 +167,45 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_824EC6799B88A6068D2FF669CD4674BE"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_50828AB8F8D0A27B3CA6B197C0D742CF"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_50828AB8F8D0A27B3CA6B197C0D742CF"
+                    {
+                    "Name" = "8:WPFToolkit.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:WPFToolkit.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_6A9312DB8FD04535ACA1E8E7ACD8BDF2"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8065A1059142953B0557508C41DF87BC"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Syndication, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_824EC6799B88A6068D2FF669CD4674BE"
+                    "_8065A1059142953B0557508C41DF87BC"
                     {
                     "Name" = "8:Syndication.dll"
                     "Attributes" = "3:512"
@@ -157,14 +229,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_85BB2348F3A9F5DAF0ABCA7870A73A13"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9224D534C170466315F525CE54337E8A"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Hardcodet.Wpf.TaskbarNotification, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_85BB2348F3A9F5DAF0ABCA7870A73A13"
+                    "_9224D534C170466315F525CE54337E8A"
                     {
                     "Name" = "8:Hardcodet.Wpf.TaskbarNotification.dll"
                     "Attributes" = "3:512"
@@ -194,17 +266,6 @@
         }
         "Folder"
         {
-            "{1525181F-901A-416C-8A58-119130FE478E}:_2D22B201EE624BE4AF3FDA44180C826C"
-            {
-            "Name" = "8:#1928"
-            "AlwaysCreate" = "11:FALSE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Property" = "8:StartupFolder"
-                "Folders"
-                {
-                }
-            }
             "{1525181F-901A-416C-8A58-119130FE478E}:_36AE29DE1F94476B9FB9E98481A1B636"
             {
             "Name" = "8:#1916"
@@ -250,6 +311,17 @@
                     }
                 }
             }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_A8C90231C09A4CA983B1F61375E438EC"
+            {
+            "Name" = "8:#1928"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:StartupFolder"
+                "Folders"
+                {
+                }
+            }
         }
         "LaunchCondition"
         {
@@ -265,24 +337,24 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:PodThrowerSetup"
+        "ProductName" = "8:Pod Thrower"
         "ProductCode" = "8:{DD341DE4-54B8-4173-B1D4-C82B87732C73}"
-        "PackageCode" = "8:{AE8CC3EC-3CBA-4B02-BD76-16D9E980DD84}"
+        "PackageCode" = "8:{6D6C3464-73EF-40CB-9F08-C3814AEE6E68}"
         "UpgradeCode" = "8:{7475E5E8-C802-4F9F-B8F2-0D37F6485A6E}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:Microsoft"
+        "Manufacturer" = "8:Jakers"
         "ARPHELPTELEPHONE" = "8:"
-        "ARPHELPLINK" = "8:"
-        "Title" = "8:PodThrowerSetup"
+        "ARPHELPLINK" = "8:http://pod.codeplex.com"
+        "Title" = "8:Pod Thrower"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Microsoft"
+        "ARPCONTACT" = "8:Jake Pearson"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
-        "ARPURLINFOABOUT" = "8:"
+        "ARPURLINFOABOUT" = "8:http://pod.codeplex.com"
         "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
@@ -386,20 +458,6 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_76F2C8C71AB4486EB64A2C34654EF548"
-            {
-            "Name" = "8:Pod Thrower"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_E39EC3FC14604390970B9F432C1D8A8A"
-            "Folder" = "8:_2D22B201EE624BE4AF3FDA44180C826C"
-            "WorkingFolder" = "8:_6A9312DB8FD04535ACA1E8E7ACD8BDF2"
-            "Icon" = "8:"
-            "Feature" = "8:"
-            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_781C001474C7462BA878CD1541CC8B21"
             {
             "Name" = "8:Pod Thrower"
@@ -410,6 +468,20 @@
             "Transitive" = "11:FALSE"
             "Target" = "8:_E39EC3FC14604390970B9F432C1D8A8A"
             "Folder" = "8:_0B6838B5683E44949E5AD862BAA2FC8E"
+            "WorkingFolder" = "8:_6A9312DB8FD04535ACA1E8E7ACD8BDF2"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_DE7A0BAE567A4455A14E725ECBB50B20"
+            {
+            "Name" = "8:Pod Thrower"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_E39EC3FC14604390970B9F432C1D8A8A"
+            "Folder" = "8:_A8C90231C09A4CA983B1F61375E438EC"
             "WorkingFolder" = "8:_6A9312DB8FD04535ACA1E8E7ACD8BDF2"
             "Icon" = "8:"
             "Feature" = "8:"
@@ -843,7 +915,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E39EC3FC14604390970B9F432C1D8A8A"
             {
-            "SourcePath" = "8:..\\PodThrower\\obj\\Debug\\PodThrower.exe"
+            "SourcePath" = "8:..\\PodThrower\\obj\\Release\\PodThrower.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_6A9312DB8FD04535ACA1E8E7ACD8BDF2"
