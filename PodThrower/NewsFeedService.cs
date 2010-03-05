@@ -8,7 +8,6 @@ using System.ServiceModel.Syndication;
 using System.IO;
 using PodThrower.Model;
 using System.ServiceModel.Channels;
-using RawHttp;
 using System.Web;
 using System.Net;
 using System.Windows;
@@ -29,7 +28,7 @@ namespace PodThrower
 		SyndicationFeedFormatter GetFeed(string id);
 
 		[OperationContract]
-		[WebGet(UriTemplate = "file/{id}/{index}.mp3")]
+		[WebGet(UriTemplate = "file/{id}/{index}/*")]
 		Stream GetFile(string id, string index);
 
 		[OperationContract]
@@ -108,7 +107,7 @@ namespace PodThrower
 				item.Summary = new TextSyndicationContent(title);
 				item.Categories.Add(new SyndicationCategory("Talk Radio"));
 
-				var uri = new Uri(Constants.RootURL + "file/" + feedDefinition.ID + "/" + count + ".mp3");
+				var uri = new Uri(Constants.RootURL + "file/" + feedDefinition.ID + "/" + count + "/" + file.Name);
 				var length = file.Length;
 				var type = Constants.MP3Mime;
 

@@ -16,9 +16,9 @@ namespace PodThrower
 			InitializeComponent();
 		}
 
-		protected override void OnCommitted(IDictionary savedState)
+		protected override void OnAfterInstall(IDictionary savedState)
 		{
-			base.OnCommitted(savedState);
+			base.OnAfterInstall(savedState);
 
 			var process = Process.Start("netsh", @"http add urlacl url=http://+:4242/podthrower user=BUILTIN\Users");
 			process.WaitForExit();

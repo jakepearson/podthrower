@@ -121,7 +121,7 @@ namespace PodThrower.Model
 			get { return chooseImageCommand ?? (chooseImageCommand = new RelayCommand(p => ChooseImage())); }
 		}
 
-		public ICommand CopyFeedURLCommand
+		public ICommand CopyFeedCommand
 		{
 			get { return copyFeedURLCommand ?? (copyFeedURLCommand = new RelayCommand(p => CopyFeedURL())); }
 		}
