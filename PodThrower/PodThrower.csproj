@@ -87,6 +87,10 @@
     <Reference Include="PresentationFramework">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExtraDlls\WPFToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -102,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Extension.cs" />
     <Compile Include="InstallHelper.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -163,6 +168,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Tray.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\connect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\rss_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\page_copy.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

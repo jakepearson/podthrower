@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:tb="clr-namespace:Hardcodet.Wpf.TaskbarNotification;assembly=Hardcodet.Wpf.TaskbarNotification"
 	xmlns:v="clr-namespace:PodThrower.View"
-    Title="Pod Thrower" Height="300" Width="300" Visibility="Hidden" Closing="Window_Closing">
+    Title="Pod Thrower" Height="300" Width="844" Visibility="Hidden" Closing="Window_Closing">
 	<Grid>
         <v:DocumentView />
         <tb:TaskbarIcon IconSource="/Images/Tray.ico" ToolTipText="{Binding Message}" DoubleClickCommand="{Binding EditCommand}" />

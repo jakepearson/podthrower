@@ -9,6 +9,9 @@ using PodThrower.View;
 using System.Windows;
 using System.ServiceModel.Web;
 using System.ServiceModel;
+using System.Xml.Serialization;
+using System.Windows.Shapes;
+using System.IO;
 
 namespace PodThrower.Model
 {
@@ -20,6 +23,7 @@ namespace PodThrower.Model
 		ObservableCollection<Feed> feeds;
 		WebServiceHost host;
 		Visibility visibility = Visibility.Hidden;
+		static XmlSerializer serializer;
 
 		ICommand editCommand;
 		ICommand connectCommand;
@@ -28,6 +32,7 @@ namespace PodThrower.Model
 		#endregion
 
 		#region Properties
+		[XmlIgnore]
 		public int Port
 		{
 			get { return port; }
@@ -41,6 +46,7 @@ namespace PodThrower.Model
 			}
 		}
 
+		[XmlIgnore]
 		public bool Connected
 		{
 			get { return connected; }
@@ -60,11 +66,14 @@ namespace PodThrower.Model
 			get { return "Pod Thrower: " + Environment.NewLine + (Connected ? "Connected" : "Not Connected"); }
 		}
 
+		[XmlArray]
 		public ObservableCollection<Feed> Feeds
 		{
 			get { return feeds ?? (feeds = new ObservableCollection<Feed>()); }
+			set { feeds = value; }
 		}
 
+		[XmlIgnore]
 		public Visibility Visibility
 		{
 			get { return Visibility.Hidden; }
@@ -82,6 +91,25 @@ namespace PodThrower.Model
 		{
 			get;
 			set;
+		}
+
+		XmlSerializer Serializer
+		{
+			get { return serializer ?? (serializer = new XmlSerializer(typeof(ObservableCollection<Feed>))); }
+		}
+
+		public string DataFile
+		{
+			get
+			{
+				var userPath = Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
+				var userDataPath = userPath + System.IO.Path.DirectorySeparatorChar + "PodThrower";
+				if (!Directory.Exists(userDataPath))
+				{
+					Directory.CreateDirectory(userDataPath);
+				}
+				return userDataPath + System.IO.Path.DirectorySeparatorChar + "FeedDefinitions.xml";
+			}
 		}
 		#endregion
 
@@ -110,23 +138,13 @@ namespace PodThrower.Model
 		public Document(Window window)
 		{
 			Window = window;
+			Load();
 			Open();
 		}
 
 		void ShowEditor()
 		{
 			Window.Visibility = Visibility.Visible;
-		}
-
-		void AddDefaultFeed()
-		{
-			Feeds.Add(new Feed
-			{
-				Image = @"C:\Users\Jake\Downloads\alt.binaries.howard-stern\sternfirst.gif",
-				Title = "Howard Stern",
-				Folder = @"C:\Users\Jake\Downloads\alt.binaries.howard-stern\",
-				ID = Feeds.Count
-			});
 		}
 
 		public void Open()
@@ -138,7 +156,7 @@ namespace PodThrower.Model
 
 			try
 			{
-						host.Open();
+				host.Open();
 				Connected = true;
 			}
 			catch (CommunicationException ce)
@@ -162,12 +180,48 @@ namespace PodThrower.Model
 		public void Quit()
 		{
 			Close();
+			Save();
 			Application.Current.Shutdown();
 		}
 
 		public void Add()
 		{
-			AddDefaultFeed();
+			var feed = new Feed();
+			if (Feeds.Count > 0)
+			{
+				feed.ID = Feeds.Select(f => f.ID).Max() + 1;
+			}
+			else
+			{
+				feed.ID = 0;
+			}
+			feed.Parent = this;
+			Feeds.Add(feed);
+		}
+
+		void Load()
+		{
+			if(File.Exists(DataFile))
+			{
+				using(var reader = new StreamReader(DataFile))
+				{
+					Feeds = (ObservableCollection<Feed>)Serializer.Deserialize(reader);
+				}
+				Feeds.ForEach(f => f.Parent = this);
+			}
+		}
+
+		void Save()
+		{
+			using (var writer = new StreamWriter(DataFile))
+			{
+				Serializer.Serialize(writer, Feeds);
+			}
+		}
+
+		public void Remove(Feed feed)
+		{
+			Feeds.Remove(feed);
 		}
 	}
 }
