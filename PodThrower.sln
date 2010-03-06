@@ -7,7 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExtraDlls", "ExtraDlls", "{
 	ProjectSection(SolutionItems) = preProject
 		ExtraDlls\Hardcodet.Wpf.TaskbarNotification.dll = ExtraDlls\Hardcodet.Wpf.TaskbarNotification.dll
 		ExtraDlls\Syndication.dll = ExtraDlls\Syndication.dll
-		ExtraDlls\WPFToolkit.dll = ExtraDlls\WPFToolkit.dll
 	EndProjectSection
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PodThrowerSetup", "PodThrowerSetup\PodThrowerSetup.vdproj", "{608FFC55-C436-4ECD-8BFE-8554AA9B44D6}"
