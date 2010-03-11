@@ -36,6 +36,7 @@ namespace PodThrower
 		Stream GetImage(string id);
 	}
 
+	[ServiceBehavior(InstanceContextMode=InstanceContextMode.Single)]
 	public class NewsFeedService : INewsFeed
 	{
 		#region Properties
