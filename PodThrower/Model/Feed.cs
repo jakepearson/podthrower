@@ -15,6 +15,7 @@ namespace PodThrower.Model
 		string folder = "";
 		string title = "";
 		string image = "";
+		string filter = "*.mp3";
 		int id;
 
 		ICommand chooseFolderCommand;
@@ -81,6 +82,20 @@ namespace PodThrower.Model
 			}
 		}
 
+		[XmlAttribute]
+		public string Filter
+		{
+			get { return filter; }
+			set
+			{
+				if (filter != value)
+				{
+					filter = value;
+					LaunchChanged("Filter");
+				}
+			}
+		}
+
 		public string FeedURL
 		{
 			get { return Constants.RootURL + "feed/" + ID; }
@@ -95,7 +110,7 @@ namespace PodThrower.Model
 		{
 			get
 			{
-				foreach (var file in Directory.GetFiles(Folder, "*.mp3", SearchOption.AllDirectories))
+				foreach (var file in Directory.GetFiles(Folder, Filter, SearchOption.AllDirectories))
 				{
 					yield return new FileInfo(file);
 				}

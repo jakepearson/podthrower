@@ -14,6 +14,7 @@ using System.Windows;
 using System.Drawing.Imaging;
 using System.Drawing;
 using System.ServiceModel.Activation;
+using Microsoft.Win32;
 
 namespace PodThrower
 {
@@ -64,8 +65,8 @@ namespace PodThrower
 		{
 			var count = int.Parse(index);
 			var feed = GetFeedDefinition(id);
-			WebOperationContext.Current.OutgoingResponse.ContentType = Constants.MP3Mime;
 			var file = feed.Files.Skip(count).First();
+			WebOperationContext.Current.OutgoingResponse.ContentType = GetContentType(file.FullName);
 			return new FileStream(file.FullName, FileMode.Open, FileAccess.Read);
 		}
 
@@ -73,7 +74,7 @@ namespace PodThrower
 		{
 			var feed = GetFeedDefinition(id);
 
-			WebOperationContext.Current.OutgoingResponse.ContentType = Constants.ImageMIME;
+			WebOperationContext.Current.OutgoingResponse.ContentType = GetContentType(feed.Image);
 			var imageAsMemoryStream = GetImageAsMemoryStream(feed.Image);
 			return imageAsMemoryStream;
 		}
@@ -101,7 +102,7 @@ namespace PodThrower
 				var shortFile = file.FullName.Replace(feedDefinition.Folder, "").Replace('\\', '/');
 
 				var item = new SyndicationItem();
-				var title = file.Name.Replace(".mp3", "");
+				var title = file.Name.Substring(0, file.Name.Length - file.Extension.Length);
 				item.Title = new TextSyndicationContent(title);
 				item.PublishDate = file.CreationTime;
 				item.Id = title;
@@ -110,12 +111,30 @@ namespace PodThrower
 
 				var uri = new Uri(Constants.RootURL + "file/" + feedDefinition.ID + "/" + count + "/" + file.Name);
 				var length = file.Length;
-				var type = Constants.MP3Mime;
+				var type = GetContentType(file.FullName);
 
 				item.Links.Add(SyndicationLink.CreateMediaEnclosureLink(uri, type, length));
 				count++;
 				yield return item;
 			}
+		}
+
+		public string GetContentType(string fname)
+		{
+			string contentType = "application/octet-stream";
+
+			try
+			{
+				// get the registry classes root
+				var classes = Registry.ClassesRoot;
+
+				// find the sub key based on the file extension
+				var fileClass = classes.OpenSubKey(Path.GetExtension(fname));
+				contentType = fileClass.GetValue("Content Type").ToString();
+			}
+			catch { }
+
+			return contentType;
 		}
 	}
 }
