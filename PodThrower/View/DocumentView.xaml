@@ -49,6 +49,7 @@
 						</DataTemplate>
 					</wtk:DataGridTemplateColumn.CellTemplate>
 				</wtk:DataGridTemplateColumn>
+				<wtk:DataGridTextColumn Header="File Filter" Binding="{Binding Filter}" />
 				<wtk:DataGridTextColumn Header="Feed URL" Binding="{Binding FeedURL}" IsReadOnly="True" />
 				<wtk:DataGridTemplateColumn Header="Actions">
 					<wtk:DataGridTemplateColumn.CellTemplate>
