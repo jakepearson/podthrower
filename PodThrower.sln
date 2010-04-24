@@ -1,13 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PodThrower", "PodThrower\PodThrower.csproj", "{9D39F0D1-1F3E-4F62-8D65-06C45A9A04CB}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExtraDlls", "ExtraDlls", "{1466CC72-99A1-4FD1-B097-47AB650C0067}"
 	ProjectSection(SolutionItems) = preProject
 		ExtraDlls\Hardcodet.Wpf.TaskbarNotification.dll = ExtraDlls\Hardcodet.Wpf.TaskbarNotification.dll
 		ExtraDlls\Syndication.dll = ExtraDlls\Syndication.dll
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PodThrower", "PodThrower\PodThrower.csproj", "{9D39F0D1-1F3E-4F62-8D65-06C45A9A04CB}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PodThrowerSetup", "PodThrowerSetup\PodThrowerSetup.vdproj", "{608FFC55-C436-4ECD-8BFE-8554AA9B44D6}"
 EndProject
